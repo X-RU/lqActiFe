@@ -1,0 +1,22 @@
+<template name="activityList">
+        <!-- <block wx:for-items="{{list}}" wx:key="{{item.id}}"> -->
+          <navigator class="weui-cell weui-cell_access" url="/pages/activity/activity_detail" hover-class="navigator-hover">
+              <view class="weui-cell__hd"> 
+              <image class="activity_image" src="/images/picture1.png"></image>
+              </view>
+              <view class="weui-cell__bd">
+                  <p>主题1</p>
+              </view>
+              <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+          </navigator>
+          <navigator class="weui-cell weui-cell_access" url="/pages/activity/my_activity" hover-class="navigator-hover">
+              <view class="weui-cell__hd"> 
+              <image class="activity_image" src="/images/picture1.png"></image>
+              </view>
+              <view class="weui-cell__bd">
+                  <p>主题2</p>
+              </view>
+              <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+          </navigator>
+        <!-- </block> -->
+</template>

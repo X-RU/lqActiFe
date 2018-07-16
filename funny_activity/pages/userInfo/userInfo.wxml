@@ -1,0 +1,67 @@
+<!--pages/userInfo/userInfo.wxml-->
+<view class="contentDetail">
+  <form bindsubmit="formSubmit" bindreset="formReset">
+    <view class="weui-cells weui-cells_form">
+            <view class="weui-cell">
+                <view class="weui-cell__hd">
+                  <label class="weui-label">用户名</label>
+                </view>
+                <view class="weui-cell__bd">
+                    <input class="weui-input" placeholder="请填写用户名" name='cname'/>
+                </view>
+            </view>
+            <view class="weui-cell">
+                <view class="weui-cell__hd">
+                  <label class="weui-label text_space">性别</label>
+                </view>
+                <view class="weui-cell__bd">
+                  <radio-group class="radio-group" bindchange="radioChange">
+                    <label class="radio" wx:for="{{items}}" wx:key="{{items.value}}" >
+                        <radio value="{{item.value}}" checked="{{item.checked}}" name="age"/>{{item.name}}
+                    </label>
+                  </radio-group>
+                </view>
+            </view>
+            <view class="weui-cell">
+                <view class="weui-cell__hd">
+                  <label class="weui-label text_space">职业</label>
+                </view>
+                <view class="weui-cell__bd">
+                  <picker bindchange="bindCareerChange" value="{{careerIndex}}" range="{{careerArr}}" name="career">
+                  <input class='weui-input' placeholder="请选择"  value="{{careerName}}"/>
+                  </picker>
+                </view>
+            </view>
+            <view class="weui-cell">
+                <view class="weui-cell__hd">
+                  <label class="weui-label text_space">年龄</label>
+                </view>
+                <view class="weui-cell__bd">
+                  <picker bindchange="bindAgeChange" value="{{ageIndex}}" range="{{ageArr}}" name="age">
+                  <input class='weui-input' placeholder="请选择"  value="{{ageName}}"/>
+                  </picker>
+                </view>
+            </view>
+            <view class="weui-cell">
+                <view class="weui-cell__hd">
+                  <label class="weui-label text_space">地区</label>
+                </view>
+                <view class="weui-cell__bd">
+                    <input class="weui-input" placeholder="请填写" name='location'/>
+                </view>
+            </view>
+            <view class="weui-cell">
+                <view class="weui-cell__hd">
+                  <label class="weui-label text_space">特长</label>
+                </view>
+                <view class="weui-cell__bd">
+                    <input class="weui-input" placeholder="请填写" name='specialty'/>
+                </view>
+            </view>
+    </view>
+
+    <view>
+      <button type="primary" formType="submit" class='weui-btn'> 更新信息 </button>
+    </view>
+    </form>
+</view>

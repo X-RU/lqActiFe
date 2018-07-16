@@ -1,0 +1,31 @@
+{
+  "pages": [
+    "pages/activity/activity_detail",
+    "pages/activity/activity",
+    "pages/index/index",
+    "pages/activity/create_activity",
+    "pages/activity/my_activity",
+    "pages/logs/logs",
+    "pages/login/login",
+    "pages/userInfo/userInfo"
+
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "来趣活动吧",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/activity/activity",
+        "text": "活动"
+      },
+      {
+        "pagePath": "pages/index/index",
+        "text": "我的"
+      }
+    ]
+  }
+}

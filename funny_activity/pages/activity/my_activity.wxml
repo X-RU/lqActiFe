@@ -1,0 +1,12 @@
+<import src="../template/activity_list.wxml"/>
+
+<view class="contentDetail">
+    <view class="page-section">
+      <view class="weui-cells weui-cells_after-title">
+        <!-- <block wx:for-items="{{list}}" wx:key="{{item.id}}"> -->
+        <!--使用template实现活动列表展示  -->
+        <template is="activityList" data="{{...item}}"></template>
+        <!-- </block> -->
+      </view>
+    </view>
+</view>

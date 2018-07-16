@@ -1,0 +1,16 @@
+<!--pages/activity/activity_detail.wxml-->
+
+<view class="container">
+  <view class="userinfo">
+    <image class="userinfo-avatar" src="/images/picture1.png" mode="cover"></image>
+      <view class="weui-cells weui-cells_after-title">
+          <view class="weui-cell">
+              <view class="weui-cell__bd">
+              <p>标题文字</p>
+              <p>image</p>
+              </view>
+          </view>
+      </view>
+  </view>
+</view>
+

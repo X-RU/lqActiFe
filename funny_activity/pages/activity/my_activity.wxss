@@ -1,0 +1,3 @@
+/* pages/activity/my_activity.wxss */
+@import "../template/activity_list.wxss";
+
