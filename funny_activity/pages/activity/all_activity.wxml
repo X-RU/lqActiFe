@@ -1,6 +1,5 @@
 <import src="../template/activity_list.wxml"/>
 
-
 <view class="contentDetail">
     <view class="page-section">
       <view class="weui-tab">

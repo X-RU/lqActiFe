@@ -1,4 +1,6 @@
 //app.js
+import wxValidate from '/utils/wxValidate.js'
+
 App({
   onLaunch: function () {
     // 展示本地存储能力
@@ -11,8 +13,11 @@ App({
       success: res => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
         console.log(res.code)
+        this.globalData.code = res.code
       }
     })
+
+
     // 获取用户信息
     wx.getSetting({
       success: res => {
@@ -25,21 +30,28 @@ App({
               console.log('ok'+res)
               //将用户数据发送给后台，进行存储
               wx.request({
-                url: 'https://60.205.215.200:80/autho/login', //保存登陆用户信息的接口地址
+                url: 'https://10.11.4.78:8000/autho/login', //保存登陆用户信息的接口地址
                 method: 'post',
                 data: {
-                  wechatId:'111'
-                  // nickname: res.nickname,
-                  // gender: res.gender,
-                  // province: res.province,
-                  // country: res.country,
-                  // city: res.city
+                  request_code: this.globalData.code,
+                  image_url: this.globalData.userInfo.avatarUrl
                 },
                 header: {
                   'content-type': 'application/json' // 默认值
                 },
                 success: function (res) {
                   console.log(res.data)
+                  if(res.code == 200){
+                    //获取用户微信id
+                    this.globalData.wechat_id = res.wechat_id
+                  }else{
+                    wx.showToast({
+                      title: '登陆出错，请重新登陆！',
+                      icon: 'none',
+                      duration: 2000
+                    })
+                  }
+                  
                 }
               })
               
@@ -50,11 +62,14 @@ App({
               }
             }
           })
-        }
+        } 
       }
     })
   },
   globalData: {
-    userInfo: null
-  }
+    userInfo: null,
+    code:null,
+    wechat_id:null
+  },
+  wxValidate: (rules, messages) => new wxValidate(rules, messages)
 })

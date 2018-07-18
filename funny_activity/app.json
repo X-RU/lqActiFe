@@ -1,12 +1,18 @@
 {
   "pages": [
-    "pages/activity/activity_detail",
-    "pages/activity/activity",
-    "pages/index/index",
     "pages/activity/create_activity",
+    "pages/activity/activity",
+    "pages/activity/activity_detail",
     "pages/activity/my_activity",
+    "pages/activity/all_activity",
+    "pages/activity/participate_list",
+    "pages/activity/activity_manage",
+    "pages/activity/activity_shift",
+    "pages/activity/join_activity",
+    "pages/index/index",
+    
+    
     "pages/logs/logs",
-    "pages/login/login",
     "pages/userInfo/userInfo"
 
   ],
@@ -20,11 +26,13 @@
     "list": [
       {
         "pagePath": "pages/activity/activity",
-        "text": "活动"
+        "text": "活动",
+        "iconPath": "images/guangchang.png"
       },
       {
         "pagePath": "pages/index/index",
-        "text": "我的"
+        "text": "我的",
+        "iconPath": "images/user.png"
       }
     ]
   }

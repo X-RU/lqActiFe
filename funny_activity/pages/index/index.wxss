@@ -8,7 +8,7 @@ page {
 }
 .login{
   background-color:#27aa28;
-  width:200px;
+  width:400rpx;
   color: #fff;
 }
 
@@ -20,8 +20,8 @@ page {
 }
 
 .userinfo-avatar {
-  width: 200rpx;
-  height: 200rpx;
+  width: 400rpx;
+  height: 400rpx;
   margin: 50rpx;
   border-radius: 50%;
 }
@@ -30,10 +30,6 @@ page {
   color: #aaa;
 }
 
-
-/* .usermotto {
-  margin-top: 200px;
-} */
 
 .navigator-hover {
     color:blue;

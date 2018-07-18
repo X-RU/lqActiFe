@@ -3,9 +3,8 @@
 @import "../template/activity_list.wxss";
 
 .activityInfo {
-  position: relative;
-  height: 100%;
   width: 100%;
+  flex-direction: column;
 }
 .activity_head {
   width: 100%;
@@ -18,7 +17,7 @@
 }
 
 .activity_logo {
-  width: 200px;
-  height: 200px;
+  width: 400rpx;
+  height: 400rpx;
   border-radius: 50%;
 }

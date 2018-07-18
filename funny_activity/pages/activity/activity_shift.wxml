@@ -1,0 +1,21 @@
+<!--pages/activity/activity_shift.wxml-->
+<view class="contentDetail">
+  <form bindsubmit="formSubmit" bindreset="formReset">
+    <view class="weui-cells weui-cells_form">
+      <view class="weui-cell">
+            <view class="weui-cell__bd">
+                请输入你要转让的微信号：
+            </view>
+        </view> 
+      <view class="weui-cell">
+          <view class="weui-cell__bd">
+              <input class="weui-input" placeholder="请填写微信号" name='cname'/>
+          </view>
+      </view> 
+    </view>
+
+    <view>
+      <button type="primary" formType="submit" class='weui-btn'> 转让</button>
+    </view>
+    </form>
+</view>

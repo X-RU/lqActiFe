@@ -19,34 +19,44 @@
     </view>
     <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" bindtap="hideInput">取消</view>
   </view>
+
   <!--搜索内容列表  -->
   <view class="weui-cells search_content_style" wx:if="{{inputVal.length > 0}}">
       <!--使用template实现活动列表展示  -->
       <template is="activityList" data="{{...item}}"></template>
   </view>
-<!--活动首页内容  -->
-  <view class="activityInfo" wx:if="{{inputVal.length == 0}}">
+
+  <block wx:if="{{inputVal.length == 0}}">
+  <view class="weui-flex activityInfo" >
     <view class='activity_head'>
-      <text class='head_text_style'>{{welcome_text}}</text>
-      <image class="activity_logo" src="{{ac_image}}" mode="cover"></image>
+      <view>
+        <text class='head_text_style'>{{welcome_text}}</text>
+      </view>
+      <view>
+        <image class="activity_logo" src="{{ac_image}}" mode="cover"></image>
+      </view>
     </view>
-    <button type='primary' bindtap="createActivity" class='button_style'> 发起活动           
-    </button>
-  
+    <view>
+      <button type='primary' bindtap="createActivity" class='button_style'>发起活动</button>
+    </view>
+
     <view class="page-section" style="margin-top: 40rpx;margin-bottom: 0;">
-        <view class="weui-cells weui-cells_after-title">
+    <view class="weui-cells weui-cells_after-title">
             <navigator class="weui-cell weui-cell_access" url="/pages/activity/my_activity" hover-class="weui-cell_active">
               <view class="weui-cell__bd">我的活动</view>
               <view class="weui-cell__ft weui-cell__ft_in-access">
               <!-- <icon class="iconfont icon-youjiantou"></icon> -->
               </view>
             </navigator>
-            <navigator class="weui-cell weui-cell_access" url="/pages/activity/my_activity" hover-class="weui-cell_active">
+            <navigator class="weui-cell weui-cell_access" url="/pages/activity/all_activity" hover-class="weui-cell_active">
               <view class="weui-cell__bd">所有活动</view>
               <view class="weui-cell__ft weui-cell__ft_in-access">
               </view>
             </navigator>
-        </view>
-      </view>
     </view>
+    </view>
+
+
+  </view>
+</block>
 </view>
