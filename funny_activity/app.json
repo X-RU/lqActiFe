@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/activity/create_activity",
     "pages/activity/activity",
+    "pages/activity/create_activity",
     "pages/activity/activity_detail",
     "pages/activity/my_activity",
     "pages/activity/all_activity",
@@ -27,12 +27,14 @@
       {
         "pagePath": "pages/activity/activity",
         "text": "活动",
-        "iconPath": "images/guangchang.png"
+        "iconPath": "images/huodong.png",
+        "selectedIconPath": "images/active_huodong.png"
       },
       {
         "pagePath": "pages/index/index",
         "text": "我的",
-        "iconPath": "images/user.png"
+        "iconPath": "images/user.png",
+        "selectedIconPath": "images/active_user.png"
       }
     ]
   }

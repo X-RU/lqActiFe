@@ -3,31 +3,54 @@
 <view class="contentDetail">
     <view class="page-section">
       <view class="weui-tab">
-            <view class="weui-navbar">
-                <block wx:for="{{tabs}}" wx:key="*this">
-                    <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
-                        <view class="weui-navbar__title">{{item}}</view>
-                    </view>
-                </block>
-                <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
-            </view>
-            <view class="weui-tab__panel">
-                <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
-                  <view class="weui-cells weui-cells_after-title">
-                    <!-- <block wx:for-items="{{list}}" wx:key="{{item.id}}"> -->
-                    <!--使用template实现活动列表展示  -->
-                    <template is="activityList" data="{{...item}}"></template>
-                    <!-- </block> -->
-                  </view>
+        <view class="weui-navbar">
+            <block wx:for="{{tabs}}" wx:key="*this">
+                <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
+                    <view class="weui-navbar__title">{{item}}</view>
                 </view>
-                <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
-                  <view class="weui-cells weui-cells_after-title">
-                    <!-- <block wx:for-items="{{list}}" wx:key="{{item.id}}"> -->
+            </block>
+            <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
+        </view>
+      <view class="weui-tab__panel">
+        <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
+          <view class="weui-cells weui-cells_after-title">
+            <block wx:for-items="{{participate_list}}" wx:key="{{item.activity_id}}"> 
                     <!--使用template实现活动列表展示  -->
-                    <template is="activityList" data="{{...item}}"></template>
-                    <!-- </block> -->
-                  </view>
-                </view>
+                    <!-- <template is="activityList" data="{{...item}}"></template> -->
+                    <!-- <view class="weui-panel__bd"> -->
+            <navigator url="/pages/activity/activity_detail?activity_id={{item.activity_id}}" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
+              <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+                  <image class="weui-media-box__thumb" src="/images/picture1.png" />
+              </view>
+              <view class="weui-media-box__bd weui-media-box__bd_in-appmsg text_left">
+                <view class="weui-media-box__title">{{item.aname}}</view>
+                <view class="weui-media-box__desc">时间：{{item.date}} {{item.time}}</view>
+                <view class="weui-media-box__desc">地点：{{item.place}}</view>
+              </view>
+            </navigator>
+
+          </block> 
+      </view>
+    </view>
+    <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
+      <view class="weui-cells weui-cells_after-title">
+        <block wx:for-items="{{no_participate_list}}" wx:key="{{item.activity_id}}"> 
+                    <!--使用template实现活动列表展示  -->
+                    <!-- <template is="activityList" data="{{...item}}"></template> -->
+
+          <navigator url="/pages/activity/activity_detail?activity_id={{item.activity_id}}" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
+              <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+                  <image class="weui-media-box__thumb" src="/images/picture1.png" />
+              </view>
+              <view class="weui-media-box__bd weui-media-box__bd_in-appmsg text_left">
+                  <view class="weui-media-box__title">{{item.aname}}</view>
+                  <view class="weui-media-box__desc">时间：{{item.date}} {{item.time}}</view>
+                  <view class="weui-media-box__desc">地点：{{item.place}}</view>
+              </view>
+          </navigator>
+        </block> 
+      </view>
+    </view>
                
             </view>
         </view>

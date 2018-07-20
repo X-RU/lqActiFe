@@ -16,27 +16,35 @@ Page({
   },
   formSubmit: function (e) {
     console.log('提交用户数据', e.detail.value)
-    wx.showToast({
-      title: '转让成功！',
-      icon: 'success',
-      duration: 2000
+    
+    // 将用户数据发送给后台，进行存储
+    wx.request({
+      url: 'http://10.11.4.78:8000/activity/shift',
+      method:'POST',
+      data: {
+        wechat_id: wx.getStorageSync('wechat_id'),
+        activity_id: wx.getStorageSync('activity_id'),
+        wechat_id_to: e.detail.value.wechat_id_to
+      },
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: function (res) {
+        console.log(res.data)
+        if(res.data.code==200){
+          wx.showToast({
+            title: '转让成功！',
+            icon: 'success',
+            duration: 2000
+          })
+        }else{
+          wx.showToast({
+            title: '转让失败，请填写参与人微信号！',
+            icon: 'none',
+            duration: 2000
+          })
+        }
+      }
     })
-    //将用户数据发送给后台，进行存储
-    // wx.request({
-    //   url: '/me/update.php', //更新用户信息接口地址
-    //   data: {
-    //     nickname: e.detail.value.username,
-    //     gender: e.detail.value.gender,
-    //     age: e.detail.value.age,
-    //     career: e.detail.value.career,
-    //     area: e.detail.value.area
-    //   },
-    //   header: {
-    //     'content-type': 'application/json' // 默认值
-    //   },
-    //   success: function (res) {
-    //     console.log(res.data)
-    //   }
-    // })
   }
 })

@@ -22,8 +22,20 @@
 
   <!--搜索内容列表  -->
   <view class="weui-cells search_content_style" wx:if="{{inputVal.length > 0}}">
-      <!--使用template实现活动列表展示  -->
-      <template is="activityList" data="{{...item}}"></template>
+      <!-- <block wx:for-items="{activity_list}}" wx:key="{{item.activity_id}}"> 
+          <template is="activityList" data="{{...item}}"></template>
+      </block> -->
+      <navigator wx:for="{{activity_list}}" url="/pages/activity/activity_detail?activity_id={{item.activity_id}}" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
+          <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+              <image class="weui-media-box__thumb" src="/images/picture1.png" />
+          </view>
+          <view class="weui-media-box__bd weui-media-box__bd_in-appmsg text_left">
+              <view class="weui-media-box__title">{{item.aname}}</view>
+              <view class="weui-media-box__desc">时间：{{item.date}} {{item.time}}</view>
+              <view class="weui-media-box__desc">地点：{{item.place}}</view>
+          </view>
+      </navigator>
+            
   </view>
 
   <block wx:if="{{inputVal.length == 0}}">

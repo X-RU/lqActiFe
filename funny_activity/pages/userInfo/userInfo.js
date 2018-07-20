@@ -1,14 +1,62 @@
 // pages/userInfo/userInfo.js
+//获取应用实例
+const app = getApp()
+
 Page({
   data: {
     items: [
-    { name: '男', value: '1',checked: 'true'},
-    { name: '女', value: '0'}
+    { name: '男', value: '1'},
+    { name: '女', value: '2'}
     ],
     careerArr:['老师','学生','律师','自由职业'],
     careerIndex:0,
     ageArr: ['10岁以下', '10-20岁', '20-30岁', '30-40岁','40-50岁','50岁以上'],
-    ageIndex: 0
+    ageIndex: 0,
+    user_info:{}
+  },
+  //表单验证初始化
+  onLoad: function () {
+    this.WxValidate = app.wxValidate(
+      {
+        name: {
+          required: true,
+          minlength: 2,
+          maxlength: 10,
+        },
+        age: {
+          number:true
+        }
+      }
+      , {
+        name: {
+          required: '请填写用户名',
+        }
+      }
+    ),
+      console.log("wechat_id:" + wx.getStorageSync('wechat_id'))
+      //获取用户信息
+      wx.request({
+        url: 'http://10.11.4.78:8000/me/' + wx.getStorageSync('wechat_id'), //获取用户信息接口地址
+        method: 'GET',
+        data: {
+          // wechat_id: app.globalData.wechat_id
+        },
+        header: {
+          'content-type': 'application/json' // 默认值
+        },
+        success: (res) => {
+          if (res.data.code == 200) {
+            console.log(res.data.code)
+            this.setData({
+              user_info: res.data.user_info[0]
+            })
+
+          }
+        },
+        fail:function(e){
+          console.log(e)
+        }
+      })
   },
   radioChange: function(e) {
     console.log('radio发生change事件，携带value值为：', e.detail.value)
@@ -29,21 +77,42 @@ Page({
   },
   formSubmit: function (e) {
     console.log('提交用户数据', e.detail.value)
+    //提交错误描述
+    if (!this.WxValidate.checkForm(e)) {
+      const error = this.WxValidate.errorList[0]
+      // `${error.param} : ${error.msg} `
+      wx.showToast({
+        title: `${error.msg}`,
+        icon: 'none',
+        duration: 2000
+      })
+      return false
+    }
+    console.log("qingqiu")
     //将用户数据发送给后台，进行存储
     wx.request({
-      url: '/me/update.php', //更新用户信息接口地址
+      url: 'http://10.11.4.78:8000/me/' + wx.getStorageSync('wechat_id'), //更新用户信息接口地址
+      method: 'POST',
       data: {
-        nickname: e.detail.value.username,
-        gender: e.detail.value.gender,
-        age: e.detail.value.age,
+        name: e.detail.value.name,
+        gender: parseInt(e.detail.value.gender),
         career: e.detail.value.career,
-        area: e.detail.value.area
+        age: parseInt(e.detail.value.age),
+        place: e.detail.value.place,
+        specialty: e.detail.value.specialty
       },
       header: {
         'content-type': 'application/json' // 默认值
       },
       success: function (res) {
         console.log(res.data)
+        if (res.data.code == 200) {
+          wx.showToast({
+            title: '更新成功!',
+            icon: 'succee',
+            duration: 2000
+          })
+        }
       }
     })
   }

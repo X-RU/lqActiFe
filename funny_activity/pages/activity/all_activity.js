@@ -22,9 +22,35 @@ Page({
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
-        hasUserInfo: true
+        hasUserInfo: true,
+        
       })
+      console.log("111")
+      //发请求获取全部活动
+      wx.request({
+        url: 'http://10.11.4.78:8000/activity/' + wx.getStorageSync('wechat_id'), //判断活动是否已参加接口地址
+        method: 'GET',
+        data: {
+          // activity_id: options.activity_id,
+          // wechat_id: app.globalData.wechat_id
+        },
+        header: {
+          'content-type': 'application/json' // 默认值
+        },
+        success:  (res) => {
+          console.log(res.data)
+          if(res.data.code == 200){
+            this.setData({
+              participate_list: res.data.participate_list,
+              no_participate_list: res.data.no_participate_list
+            })
+          }
+          
+        }
+      })
+
       console.log("ok")
+      // 初始化tab
       var that = this;
       wx.getSystemInfo({
         success: function (res) {

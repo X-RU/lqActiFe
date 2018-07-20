@@ -41,7 +41,19 @@
   background-color: #f8f8f8;
   flex:35%;
   align-items:center;
+  height: 100%;
+  border-radius: 0;
 }
+
+.btn::after {
+  border: 0;
+}
+
+button::after {
+  border-radius: 0;
+  border: 0;
+}
+
 
 .btn_style_l{
   background-color: #f8f8f8;
