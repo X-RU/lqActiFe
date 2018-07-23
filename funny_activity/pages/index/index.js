@@ -9,30 +9,44 @@ Page({
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     image:'/images/logo.png'
   },
-  //事件处理函数
-  // bindViewTap: function() {
-  //   console.log('11111');
-  //   wx.navigateTo({
-  //     url: '/pain/login',
-  //     fail: (err)=>{ console.log(err) }
-  //   })
-  // },
-  onLoad: function () {
-    if (app.globalData.userInfo) {
-      this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true
+  onShow: function () {
+    if (wx.getStorageSync('wechat_id')) {
+      console.log("1")
+      //获取用户信息
+      wx.request({
+        url: 'http://118.25.180.46/me/' + wx.getStorageSync('wechat_id'), //获取用户信息接口地址
+        method: 'GET',
+        data: {
+          // wechat_id: app.globalData.wechat_id
+        },
+        header: {
+          'content-type': 'application/json' // 默认值
+        },
+        success: (res) => {
+          if (res.data.code == 200) {
+            console.log(res.data)
+            this.setData({
+              userInfo: res.data.user_info[0],
+              hasUserInfo: true
+            })
+
+          }
+        }
       })
+      
     } else if (this.data.canIUse){
+      console.log("2")
       // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
       // 所以此处加入 callback 以防止这种情况
       app.userInfoReadyCallback = res => {
+        console.log(res.userInfo)
         this.setData({
           userInfo: res.userInfo,
           hasUserInfo: true
         })
       }
     } else {
+      console.log("3")
       // 在没有 open-type=getUserInfo 版本的兼容处理
       wx.getUserInfo({
         success: res => {
@@ -47,21 +61,21 @@ Page({
   },
   getUserInfo: function(e) {
     if (e.detail.userInfo == null){
-      wx.switchTab({
-        url: '/pages/index/index',
+      wx.showToast({
+        title: '获取用户信息失败！',
+        icon: 'none',
+        duration: 2000
       })
     }else{
       console.log("login")
-      console.log(e.detail.userInfo)
       app.globalData.userInfo = e.detail.userInfo
-      console.log(app.globalData.userInfo)
       this.setData({
         userInfo: e.detail.userInfo,
         hasUserInfo: true
       })
       console.log("begin")
       wx.request({
-        url: 'http://10.11.4.78:8000/autho/login', //保存登陆用户信息的接口地址
+        url: 'http://118.25.180.46/autho/login', //保存登陆用户信息的接口地址
         method: 'POST',
         data: {
           request_code: app.globalData.code,

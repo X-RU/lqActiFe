@@ -19,7 +19,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    if (app.globalData.userInfo) {
+    if (wx.getStorageSync('wechat_id')) {
       this.setData({
         userInfo: app.globalData.userInfo,
         hasUserInfo: true,
@@ -28,7 +28,7 @@ Page({
       console.log("111")
       //发请求获取全部活动
       wx.request({
-        url: 'http://10.11.4.78:8000/activity/' + wx.getStorageSync('wechat_id'), //判断活动是否已参加接口地址
+        url: 'http://118.25.180.46/activity/' + wx.getStorageSync('wechat_id'), //判断活动是否已参加接口地址
         method: 'GET',
         data: {
           // activity_id: options.activity_id,
@@ -73,5 +73,9 @@ Page({
       sliderOffset: e.currentTarget.offsetLeft,
       activeIndex: e.currentTarget.id
     });
+  },
+  // 下啦刷新
+  onPullDownRefresh: function () {
+    wx.stopPullDownRefresh()
   }
 })

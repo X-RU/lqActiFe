@@ -62,7 +62,7 @@
           </view>
           <view class="weui-cell">
                 <view class="weui-cell__hd">
-                  <label class="weui-label">费用类别</label>
+                  <label class="weui-label">费用类别<text class='must_text'>*</text></label>
                 </view>
                 <view class="weui-cell__bd">
                   <picker bindchange="bindCostTypeChange" value="{{costIndex}}" range="{{costArr}}" name="cost_type">

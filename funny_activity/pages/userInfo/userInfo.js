@@ -36,7 +36,7 @@ Page({
       console.log("wechat_id:" + wx.getStorageSync('wechat_id'))
       //获取用户信息
       wx.request({
-        url: 'http://10.11.4.78:8000/me/' + wx.getStorageSync('wechat_id'), //获取用户信息接口地址
+        url: 'http://118.25.180.46/me/' + wx.getStorageSync('wechat_id'), //获取用户信息接口地址
         method: 'GET',
         data: {
           // wechat_id: app.globalData.wechat_id
@@ -91,7 +91,7 @@ Page({
     console.log("qingqiu")
     //将用户数据发送给后台，进行存储
     wx.request({
-      url: 'http://10.11.4.78:8000/me/' + wx.getStorageSync('wechat_id'), //更新用户信息接口地址
+      url: 'http://118.25.180.46/me/' + wx.getStorageSync('wechat_id'), //更新用户信息接口地址
       method: 'POST',
       data: {
         name: e.detail.value.name,
@@ -107,11 +107,21 @@ Page({
       success: function (res) {
         console.log(res.data)
         if (res.data.code == 200) {
+          // app.globalData.userInfo = e.detail.userInfo
           wx.showToast({
             title: '更新成功!',
             icon: 'succee',
             duration: 2000
           })
+          // wx.switchTab({
+          //   url: '/pages/index/index'
+          // })
+          setTimeout(function () {
+            wx.switchTab({
+              url: '/pages/index/index'
+            })
+          }, 3000);
+
         }
       }
     })

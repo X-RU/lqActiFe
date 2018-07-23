@@ -34,26 +34,29 @@ Page({
       activity_list: null
 
     });
-    //发请求获取全部活动
-    wx.request({
-      url: 'http://10.11.4.78:8000/activity/search/' + e.detail.value, //判断活动是否已参加接口地址
-      method: 'GET',
-      data: {
-        // content: e.detail.value
-      },
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success:  (res) => {
-        console.log(res.data)
-        if(res.data.code == 200){
-          this.setData({
-            activity_list: res.data.activity_list
-          });
+    if (wx.getStorageSync('wechat_id')){
+      //发请求获取全部活动
+      wx.request({
+        url: 'http://118.25.180.46/activity/search/' + e.detail.value, //判断活动是否已参加接口地址
+        method: 'GET',
+        data: {
+          // content: e.detail.value
+        },
+        header: {
+          'content-type': 'application/json' // 默认值
+        },
+        success: (res) => {
+          console.log(res.data)
+          if (res.data.code == 200) {
+            this.setData({
+              activity_list: res.data.activity_list
+            });
+          }
+
         }
-        
-      }
-    })
+      })
+    }
+    
     
   },
   createActivity:function(e){

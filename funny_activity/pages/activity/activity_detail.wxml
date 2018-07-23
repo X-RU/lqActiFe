@@ -2,7 +2,7 @@
 
 <view class="container ">
   <view class="page-section weui-panel weui-panel_access">
-    <view>
+    <view bindtap='changeImage'>
       <image class="acticity_image" src="/images/picture1.png" mode="cover"></image>
     </view>
     <view class="weui-panel__bd">
@@ -13,7 +13,7 @@
           <label wx:elif="{{activity.activity_status == 2}}">已结束</label>
           <label wx:else="{{activity.activity_status == 3}}">已删除</label>
           </view>
-          <view class="weui-media-box__desc">活动描述：{{activity.description}}</view>
+          <view class="weui-media-box__desc">活动描述：{{activity.description?activity.description:'无'}}</view>
       </view>
     </view>
   </view>

@@ -8,7 +8,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    activity:{ "activity_id": 13, "aname": "\u9999\u5c71\u6e38\u8247\u4f1a", "is_need_password": 0, "password": null, "place": "\u53a6\u95e8\u601d\u660e\u533a", "capture": "\u7b80\u5355\u4ecb\u7ecd", "description": "\u8be6\u7ec6\u63cf\u8ff01", "picture": null, "date": "2019-08-08", "time": "08:08:00", "cost_type": null, "cost_value": null, "activity_status": 1, "activity_type": null, "atype": 0 },
+    // activity:{ "activity_id": 13, "aname": "\u9999\u5c71\u6e38\u8247\u4f1a", "is_need_password": 0, "password": null, "place": "\u53a6\u95e8\u601d\u660e\u533a", "capture": "\u7b80\u5355\u4ecb\u7ecd", "description": "\u8be6\u7ec6\u63cf\u8ff01", "picture": null, "date": "2019-08-08", "time": "08:08:00", "cost_type": null, "cost_value": null, "activity_status": 1, "activity_type": null, "atype": 0 },
     count:0
   },
 
@@ -18,7 +18,7 @@ Page({
   onLoad: function (options) {
     wx.setStorageSync('activity_id', options.activity_id) 
     wx.request({
-      url: 'http://10.11.4.78:8000/activity/' + wx.getStorageSync('wechat_id') + '/detail/' + options.activity_id, //获取活动详情接口地址
+      url: 'http://118.25.180.46/activity/' + wx.getStorageSync('wechat_id') + '/detail/' + options.activity_id, //获取活动详情接口地址
       method:'GET',
       data: {
       },
@@ -28,6 +28,7 @@ Page({
       success:  (res) => {
         console.log(res.data)
         if (res.data.code == 200) {
+          console.log(res.data)
           this.setData({
             activity: res.data.activity[0],
             user_list: res.data.user_list,
@@ -50,7 +51,7 @@ Page({
   bindJoinActivity:function(e) {
     // // 将用户数据发送给后台，进行存储
     wx.request({
-      url: 'http://10.11.4.78:8000/activity/detail', //判断活动参加接口地址
+      url: 'http://118.25.180.46/activity/detail', //判断活动参加接口地址
       method:'POST',
       data: {
         wechat_id: wx.getStorageSync('wechat_id') ,
@@ -65,11 +66,14 @@ Page({
             wx.showToast({
               title: '报名成功！',
               icon: 'success',
-              duration: 2000
+              duration: 2000,
             })
-            wx.redirectTo({
-              url: './activity_detail?activity_id=' + wx.getStorageSync('activity_id'),
-            })
+            setTimeout(function () {
+              wx.redirectTo({
+                url: './activity_detail?activity_id=' + wx.getStorageSync('activity_id')
+              })
+            }, 2000)
+            
         } else if (res.data.code == 600){
             wx.showToast({
               title: '您已报名，请勿重复报名！',
@@ -91,7 +95,7 @@ Page({
         if (res.confirm) {
           // 此处请求后台删除该活动的参与人
           wx.request({
-            url: 'http://10.11.4.78:8000/activity/' + wx.getStorageSync('wechat_id') + '/detail/' + wx.getStorageSync('activity_id'), //是否退出活动接口地址
+            url: 'http://118.25.180.46/activity/' + wx.getStorageSync('wechat_id') + '/detail/' + wx.getStorageSync('activity_id'), //是否退出活动接口地址
             method:'DELETE',
             data: {
             },
@@ -106,9 +110,12 @@ Page({
                   icon: 'success',
                   duration: 2000
                 })
-                wx.redirectTo({
-                  url: './activity_detail?activity_id=' + wx.getStorageSync('activity_id'),
-                })
+                  setTimeout(function () {
+                    wx.redirectTo({
+                      url: './activity_detail?activity_id=' + wx.getStorageSync('activity_id')
+                    })
+                  }, 3000)
+                
               } else {
                 wx.showToast({
                   title: '退出出错！',
@@ -137,7 +144,7 @@ Page({
         if (res.confirm) {
           // 此处请求
           wx.request({
-            url: 'http://10.11.4.78:8000/activity/' + wx.getStorageSync('wechat_id') + '/created/' + wx.getStorageSync('activity_id'), //删除该活动接口地址
+            url: 'http://118.25.180.46/activity/' + wx.getStorageSync('wechat_id') + '/created/' + wx.getStorageSync('activity_id'), //删除该活动接口地址
             method: 'DELETE',
             data: {
 
@@ -148,16 +155,22 @@ Page({
             success: function (res) {
               console.log("shanchu"+res.data)
               console.log(res.data.affected)
-              if (res.data.code ==200 && res.data.affected == '1') {
-                flag = true
+              if (res.data.code ==200 && res.data.affected == 1) {
                 wx.showToast({
                   title: '删除成功！',
                   icon: 'success',
-                  duration: 2000
+                  duration: 2000,
+                  // success:function(){
+                  //   wx.redirectTo({
+                  //     url: './activity_detail?activity_id=' + wx.getStorageSync('activity_id')
+                  //   })
+                  // }
                 })
-                wx.redirectTo({
-                  url: './activity_detail?activity_id=' + wx.getStorageSync('activity_id'),
-                })
+                setTimeout(function () {
+                  wx.redirectTo({
+                    url: './activity_detail?activity_id=' + wx.getStorageSync('activity_id')
+                  })
+                }, 3000)
               } else{
                 wx.showToast({
                   title: '删除出错！',
@@ -191,5 +204,20 @@ Page({
       title: '小伙伴们，一起趣活动吧～～',
       // path:'/pages/index/index' //默认当前页面
     }
+  },
+  // 上传图片
+  changeImage:function(e){
+    wx.chooseImage({
+      success: function (res) {
+        var tempFilePaths = res.tempFilePaths
+        wx.saveFile({
+          tempFilePath: tempFilePaths[0],
+          success: function (res) {
+            var savedFilePath = res.savedFilePath
+            
+          }
+        })
+      }
+    })
   }
 })

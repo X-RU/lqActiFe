@@ -1,10 +1,10 @@
 {
   "pages": [
     "pages/activity/activity",
-    "pages/activity/create_activity",
-    "pages/activity/activity_detail",
     "pages/activity/my_activity",
     "pages/activity/all_activity",
+    "pages/activity/activity_detail",
+    "pages/activity/create_activity",
     "pages/activity/participate_list",
     "pages/activity/activity_manage",
     "pages/activity/activity_shift",
@@ -17,10 +17,12 @@
 
   ],
   "window": {
-    "backgroundTextStyle": "light",
+    "backgroundTextStyle": "dark",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "来趣活动吧",
-    "navigationBarTextStyle": "black"
+    "navigationBarTextStyle": "black",
+    "enablePullDownRefresh":true
+
   },
   "tabBar": {
     "list": [

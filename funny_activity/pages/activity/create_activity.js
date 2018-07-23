@@ -20,7 +20,7 @@ Page({
       })
       // 请求获取活动信息
       wx.request({
-        url: 'http://10.11.4.78:8000/activity/' + wx.getStorageSync('wechat_id') + '/detail/' + wx.getStorageSync('activity_id'), //获取活动详情接口地址
+        url: 'http://118.25.180.46/activity/' + wx.getStorageSync('wechat_id') + '/detail/' + wx.getStorageSync('activity_id'), //获取活动详情接口地址
         method: 'GET',
         data: {
         },
@@ -74,9 +74,9 @@ Page({
         cost_value: {
           number: true
         },
-        // cost_type: {
-        //   required: true
-        // },
+        cost_type: {
+          required: true
+        },
         description:{
           maxlength:200
         }
@@ -95,6 +95,9 @@ Page({
         },
         place: {
           required: '请填写活动地点',
+        },
+        cost_type: {
+          required: '请选择费用类别',
         }
       }
     )
@@ -177,7 +180,7 @@ Page({
       if (!wx.getStorageSync('activity_id')) {
         // 将用户数据发送给后台，进行存储
         wx.request({
-          url: 'http://10.11.4.78:8000/activity', //添加活动的接口地址
+          url: 'http://118.25.180.46/activity', //添加活动的接口地址
           method: 'POST',
           data: {
             wechat_id: wx.getStorageSync('wechat_id'),
@@ -200,11 +203,13 @@ Page({
               wx.showToast({
                 title: '保存成功！',
                 icon: 'success',
-                duration: 1000
+                duration: 2000
               }),
+              setTimeout(function () {
                 wx.redirectTo({
                   url: './activity_detail?activity_id=' + res.data.activity_id,
                 })
+              }, 3000);
             } else {
               wx.showToast({
                 title: '活动创建失败，请重新创建！',
@@ -220,7 +225,7 @@ Page({
         console.log(e.detail.value.atype)
         // 将用户数据发送给后台，进行存储
         wx.request({
-          url: 'http://10.11.4.78:8000/activity/' + wx.getStorageSync('wechat_id') + '/created/' + wx.getStorageSync('activity_id'), //更新活动的接口地址
+          url: 'http://118.25.180.46/activity/' + wx.getStorageSync('wechat_id') + '/created/' + wx.getStorageSync('activity_id'), //更新活动的接口地址
           method: 'POST',
           data: {
             wechat_id: wx.getStorageSync('wechat_id'),
@@ -244,11 +249,13 @@ Page({
               wx.showToast({
                 title: '更新成功！',
                 icon: 'success',
-                duration: 1000
+                duration: 2000
               }),
-                wx.redirectTo({
-                url: './activity_detail?activity_id=' + wx.getStorageSync('activity_id'),
-                })
+                setTimeout(function () {
+                  wx.redirectTo({
+                    url: './activity_detail?activity_id=' + wx.getStorageSync('activity_id'),
+                  })
+                }, 3000);
             } else {
               wx.showToast({
                 title: '活动更新失败，请重新更新！',
@@ -275,17 +282,49 @@ Page({
     }
   },
   getUserInfo: function (e) {
-    console.log(e)
-    if (e.detail.userInfo == null) {
+    // console.log(wx.setStorageSync('wechat_id'))
+    // console.log(app.globalData.code)
+    app.globalData.userInfo = e.detail.userInfo
+    if (!wx.setStorageSync('wechat_id')) {
       // 不做操作
-    } else {
-      app.globalData.userInfo = e.detail.userInfo
-      this.setData({
-        userInfo: e.detail.userInfo,
-        hasUserInfo: true,
-        show_user_login: false
+      wx.request({
+        url: 'http://118.25.180.46/autho/login', //保存登陆用户信息的接口地址
+        method: 'POST',
+        data: {
+          request_code: app.globalData.code,
+          image_url: app.globalData.userInfo.avatarUrl,
+          name: app.globalData.userInfo.nickName,
+          gender: app.globalData.userInfo.gender,
+          place: app.globalData.userInfo.country + app.globalData.userInfo.province + app.globalData.userInfo.city
+        },
+        header: {
+          'content-type': 'application/json' // 默认值
+        },
+        success: res =>{
+          console.log(res.data)
+          console.log("wechat_id" + res.data.wechat_id)
+          if (res.data.code == 200) {
+            //获取用户微信id
+            wx.setStorageSync('wechat_id', res.data.wechat_id)
+            this.setData({
+              show_user_login: false
+            })
+          } else {
+            wx.showToast({
+              title: '登陆出错，请重新登陆！',
+              icon: 'none',
+              duration: 2000
+            })
+            this.setData({
+              show_user_login: true
+            })
+          }
+
+        }
       })
+
     }
+    
 
   }
 })
