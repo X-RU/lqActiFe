@@ -23,7 +23,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-      if (app.globalData.userInfo) {
+    if (wx.getStorageSync('wechat_id')) {
         this.setData({
           userInfo: app.globalData.userInfo,
           hasUserInfo: true
@@ -62,10 +62,18 @@ Page({
         })
       }else{
         console.log("err")
-        wx.switchTab({
-          url: '/pages/index/index',
-          fail: (err) => { console.log(err) }
+        wx.showToast({
+          title: '请先登录！',
+          icon: 'none',
+          duration: 2000
         })
+        setTimeout(function () {
+          wx.switchTab({
+            url: '/pages/index/index',
+            fail: (err) => { console.log(err) }
+          })
+        }, 2000)
+        
       }
   },
   tabClick: function (e) {

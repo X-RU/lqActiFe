@@ -52,7 +52,7 @@ App({
                       
                     } else {
                       wx.showToast({
-                        title: '登陆出错，请重新登陆！',
+                        title: '登录出错，请重新登录！',
                         icon: 'none',
                         duration: 2000
                       })

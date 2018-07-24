@@ -37,7 +37,7 @@ Page({
               date: res.data.activity[0].date,
               time: res.data.activity[0].time,
               place: res.data.activity[0].place,
-              costIndex: res.data.activity[0].cost_type,
+              costIndex: res.data.activity[0].cost_type.toString(),
               costName: this.data.costArr[res.data.activity[0].cost_type],
               description: res.data.activity[0].description
             });
@@ -184,12 +184,12 @@ Page({
           method: 'POST',
           data: {
             wechat_id: wx.getStorageSync('wechat_id'),
-            aname: e.detail.value.aname,
+            aname: e.detail.value.aname.trim(),
             atype: parseInt(e.detail.value.atype),
             date: e.detail.value.date,
             time: e.detail.value.time,
-            place: e.detail.value.place,
-            description: e.detail.value.description,
+            place: e.detail.value.place.trim(),
+            description: e.detail.value.description.trim(),
             cost_type: parseInt(e.detail.value.cost_type),
             cost_value: e.detail.value.cost_value,
             activity_status: 0
@@ -229,12 +229,12 @@ Page({
           method: 'POST',
           data: {
             wechat_id: wx.getStorageSync('wechat_id'),
-            aname: e.detail.value.aname,
+            aname: e.detail.value.aname.trim(),
             atype: parseInt(e.detail.value.atype),
             date: e.detail.value.date,
             time: e.detail.value.time,
-            place: e.detail.value.place,
-            description: e.detail.value.description,
+            place: e.detail.value.place.trim(),
+            description: e.detail.value.description.trim(),
             cost_type: parseInt(e.detail.value.cost_type),
             cost_value: e.detail.value.cost_value,
             activity_status: 0
@@ -281,6 +281,7 @@ Page({
       })
     }
   },
+  // 用户未登录时提示登陆
   getUserInfo: function (e) {
     // console.log(wx.setStorageSync('wechat_id'))
     // console.log(app.globalData.code)
@@ -311,7 +312,7 @@ Page({
             })
           } else {
             wx.showToast({
-              title: '登陆出错，请重新登陆！',
+              title: '登录出错，请重新登录！',
               icon: 'none',
               duration: 2000
             })

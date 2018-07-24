@@ -7,7 +7,7 @@
                 <label class="weui-label text_space">主题<text class='must_text'>*</text></label>
               </view>
               <view class="weui-cell__bd">
-                  <input class="weui-input" placeholder="最多10个字符" name='aname' value='{{aname}}'/>
+                  <input class="weui-input" placeholder="最多10个字符" name='aname' value='{{aname}}' maxlength='10'/>
               </view>
           </view>
           <view class="weui-cell">
@@ -82,7 +82,7 @@
           </block>
           <view class="weui-cell">
             <view class="weui-cell__bd">
-                <textarea class="weui-textarea" placeholder="对活动进行介绍或说明..." style="height: 4.3em" name="description" value='{{description}}'/>
+                <textarea class="weui-textarea" placeholder="对活动进行介绍或说明..." style="height: 4.3em" name="description" value='{{description}}' maxlength='200'/>
                 <view class="weui-textarea-counter">最多200字</view>
             </view>
           </view>

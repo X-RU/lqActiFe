@@ -8,8 +8,21 @@ Page({
     welcome_text:'趣生活，动起来～',
     inputShowed: false,
     inputVal: "",
+    showSearch:false
     // activity_list: [{ "activity_id": 13, "aname": "\u9999\u5c71\u6e38\u8247\u4f1a", "is_need_password": 0, "password": null, "place": "\u53a6\u95e8\u601d\u660e\u533a", "capture": "\u7b80\u5355\u4ecb\u7ecd", "description": "\u8be6\u7ec6\u63cf\u8ff01", "picture": null, "date": "2019-08-08", "time": "08:08:00", "cost_type": null, "cost_value": null, "activity_status": 1, "activity_type": null, "atype": 0 }]
     
+  },
+  onShow: function (options){
+    console.log(this.data.showSearch)
+    if (wx.getStorageSync('wechat_id')) {
+      this.setData({
+        showSearch: true
+      })
+    }else{
+      this.setData({
+        showSearch: false
+      })
+    }
   },
   showInput: function () {
     this.setData({
@@ -33,11 +46,11 @@ Page({
       inputVal: e.detail.value,
       activity_list: null
 
-    });
+    })
     if (wx.getStorageSync('wechat_id')){
       //发请求获取全部活动
       wx.request({
-        url: 'http://118.25.180.46/activity/search/' + e.detail.value, //判断活动是否已参加接口地址
+        url: 'http://118.25.180.46/activity/search/' + e.detail.value.trim(), //判断活动是否已参加接口地址
         method: 'GET',
         data: {
           // content: e.detail.value
@@ -49,7 +62,8 @@ Page({
           console.log(res.data)
           if (res.data.code == 200) {
             this.setData({
-              activity_list: res.data.activity_list
+              activity_list: res.data.activity_list,
+              showSearch: true
             });
           }
 

@@ -61,7 +61,7 @@
     </view>
     </view>
 
-  <view class="page-section">
+  <view class="page-section bottom-style-10">
     <view class="weui-cells weui-cells_after-title">
       <navigator class="weui-cell weui-cell_access" url="/pages/activity/participate_list?activity_id={{activity.activity_id}}" hover-class="weui-cell_active">
         <view class="weui-cell__bd">
@@ -101,30 +101,18 @@
       <navigator class='btn_style_l' url="/pages/activity/activity" open-type='switchTab' hover-class="weui-cell_active">
           <view class="weui-flex-col">
             <image class="home_image" src="/images/index.png"></image>
-            <text class="input_text">首页</text>
+            <text>首页</text>
           </view>
       </navigator>
-      <!-- <view class='btn_style_m' hover-class="weui-cell_active" open-type="share" bindtap='onShareAppMessage'> -->
-        <!-- <view class=' '> -->
-      <button class="btn_style_m input_text text_size"  open-type="share">分享</button> 
-        <!-- </view> -->
-      <!-- </view> -->
-      <block>
-        <view wx:if="{{!is_participate && activity.activity_status ==0 }}" class='btn_style_r' bindtap='bindJoinActivity' hover-class="weui-cell_active">
-          <view class='btn_align'>
-            <text class="text_white text_size">报名</text>
-          </view>
-        </view>
-        <view wx:if="{{is_participate && !is_sponsor}}" class='btn_style_r' bindtap='bindOutActivity' hover-class="weui-cell_active">
-          <view class='btn_align'>
-            <text class="text_white text_size">退出</text>
-          </view>
-        </view>
-        <view wx:if="{{is_sponsor && activity.activity_status != 3}}" class='btn_style_r' bindtap='bindDeleteActivity' hover-class="weui-cell_active">
-          <view class='btn_align'>
-            <text class="text_white text_size">删除</text>
-          </view>
-        </view>
+      <button class="btn_style_m"  open-type="share">分享</button> 
+      <block wx:if="{{!is_participate && activity.activity_status ==0 }}">
+        <button class="btn_style_r text_white" bindtap='bindJoinActivity'>报名</button> 
+      </block>
+      <block wx:if="{{is_participate && !is_sponsor}}">
+        <button class="btn_style_r text_white" bindtap='bindOutActivity'>退出</button> 
+      </block>
+      <block wx:if="{{is_sponsor && activity.activity_status != 3}}">
+        <button class="btn_style_r text_white" bindtap='bindDeleteActivity'>删除</button> 
       </block>
 
   </view>

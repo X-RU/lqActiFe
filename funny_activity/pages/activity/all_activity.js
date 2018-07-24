@@ -62,10 +62,18 @@ Page({
       });
     } else {
       console.log("err")
-      wx.switchTab({
-        url: '/pages/index/index',
-        fail: (err) => { console.log(err) }
+      wx.showToast({
+        title: '请先登录！',
+        icon: 'none',
+        duration: 2000,
       })
+      setTimeout(function () {
+        wx.switchTab({
+          url: '/pages/index/index',
+          fail: (err) => { console.log(err) }
+        })
+      }, 2000)
+      
     }
   },
   tabClick: function (e) {

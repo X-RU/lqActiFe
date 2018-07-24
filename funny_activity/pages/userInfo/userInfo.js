@@ -94,12 +94,12 @@ Page({
       url: 'http://118.25.180.46/me/' + wx.getStorageSync('wechat_id'), //更新用户信息接口地址
       method: 'POST',
       data: {
-        name: e.detail.value.name,
+        name: e.detail.value.name.trim(),
         gender: parseInt(e.detail.value.gender),
-        career: e.detail.value.career,
+        career: e.detail.value.career.trim(),
         age: parseInt(e.detail.value.age),
-        place: e.detail.value.place,
-        specialty: e.detail.value.specialty
+        place: e.detail.value.place.trim(),
+        specialty: e.detail.value.specialty.trim()
       },
       header: {
         'content-type': 'application/json' // 默认值
@@ -107,15 +107,11 @@ Page({
       success: function (res) {
         console.log(res.data)
         if (res.data.code == 200) {
-          // app.globalData.userInfo = e.detail.userInfo
           wx.showToast({
             title: '更新成功!',
             icon: 'succee',
             duration: 2000
           })
-          // wx.switchTab({
-          //   url: '/pages/index/index'
-          // })
           setTimeout(function () {
             wx.switchTab({
               url: '/pages/index/index'

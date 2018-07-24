@@ -17,52 +17,61 @@ Page({
    */
   onLoad: function (options) {
     wx.setStorageSync('activity_id', options.activity_id) 
-    wx.request({
-      url: 'http://118.25.180.46/activity/' + wx.getStorageSync('wechat_id') + '/detail/' + options.activity_id, //获取活动详情接口地址
-      method:'GET',
-      data: {
-      },
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success:  (res) => {
-        console.log(res.data)
-        if (res.data.code == 200) {
+    if (wx.getStorageSync('wechat_id')) {
+      wx.request({
+        url: 'http://118.25.180.46/activity/' + wx.getStorageSync('wechat_id') + '/detail/' + options.activity_id, //获取活动详情接口地址
+        method: 'GET',
+        data: {
+        },
+        header: {
+          'content-type': 'application/json' // 默认值
+        },
+        success: (res) => {
           console.log(res.data)
-          this.setData({
-            activity: res.data.activity[0],
-            user_list: res.data.user_list,
-            count: res.data.count,
-            is_participate: res.data.is_participate,
-            is_sponsor: res.data.is_sponsor
+          if (res.data.code == 200) {
+            console.log(res.data)
+            this.setData({
+              activity: res.data.activity[0],
+              user_list: res.data.user_list,
+              count: res.data.count,
+              is_participate: res.data.is_participate,
+              is_sponsor: res.data.is_sponsor
 
-          });
-        } else {
-          wx.showToast({
-            title: '活动信息请求失败！',
-            icon: 'none',
-            duration: 2000
-          })
+            });
+          } else {
+            wx.showToast({
+              title: '活动信息请求失败！',
+              icon: 'none',
+              duration: 2000
+            })
+          }
         }
-      }
-    })
+      })
+    } else {
+      wx.showToast({
+        title: '请先登陆！',
+        icon: 'none',
+        duration: 2000
+      })
+    }
+    
   },
-
   bindJoinActivity:function(e) {
     // // 将用户数据发送给后台，进行存储
-    wx.request({
-      url: 'http://118.25.180.46/activity/detail', //判断活动参加接口地址
-      method:'POST',
-      data: {
-        wechat_id: wx.getStorageSync('wechat_id') ,
-        activity_id: wx.getStorageSync('activity_id')
-      },
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success: function (res) {
-        console.log(res.data)
-        if(res.data.code == 200){
+    if(wx.getStorageSync('wechat_id')){
+      wx.request({
+        url: 'http://118.25.180.46/activity/detail', //判断活动参加接口地址
+        method: 'POST',
+        data: {
+          wechat_id: wx.getStorageSync('wechat_id'),
+          activity_id: wx.getStorageSync('activity_id')
+        },
+        header: {
+          'content-type': 'application/json' // 默认值
+        },
+        success: function (res) {
+          console.log(res.data)
+          if (res.data.code == 200) {
             wx.showToast({
               title: '报名成功！',
               icon: 'success',
@@ -73,122 +82,149 @@ Page({
                 url: './activity_detail?activity_id=' + wx.getStorageSync('activity_id')
               })
             }, 2000)
-            
-        } else if (res.data.code == 600){
+
+          } else if (res.data.code == 600) {
             wx.showToast({
               title: '您已报名，请勿重复报名！',
               icon: 'none',
               duration: 2000
             })
+          }
         }
-      }
-    })
+      })
+
+    }else{
+      wx.showToast({
+        title: '请先登陆！',
+        icon: 'none',
+        duration: 2000
+      })
+    }
+    
   },
   bindOutActivity: function (e) {
-    wx.showModal({
-      title: '提醒',
-      content: '确认退出该活动吗？',
-      confirmText: "确认",
-      cancelText: "取消",
-      success: function (res) {
-        console.log(res);
-        if (res.confirm) {
-          // 此处请求后台删除该活动的参与人
-          wx.request({
-            url: 'http://118.25.180.46/activity/' + wx.getStorageSync('wechat_id') + '/detail/' + wx.getStorageSync('activity_id'), //是否退出活动接口地址
-            method:'DELETE',
-            data: {
-            },
-            header: {
-              'content-type': 'application/json' // 默认值
-            },
-            success: function (res) {
-              console.log(res.data)
-              if (res.data.code == 200) {
-                wx.showToast({
-                  title: '退出成功！',
-                  icon: 'success',
-                  duration: 2000
-                })
+    if (wx.getStorageSync('wechat_id')) {
+      wx.showModal({
+        title: '提醒',
+        content: '确认退出该活动吗？',
+        confirmText: "确认",
+        cancelText: "取消",
+        success: function (res) {
+          console.log(res);
+          if (res.confirm) {
+            // 此处请求后台删除该活动的参与人
+            wx.request({
+              url: 'http://118.25.180.46/activity/' + wx.getStorageSync('wechat_id') + '/detail/' + wx.getStorageSync('activity_id'), //是否退出活动接口地址
+              method: 'DELETE',
+              data: {
+              },
+              header: {
+                'content-type': 'application/json' // 默认值
+              },
+              success: function (res) {
+                console.log(res.data)
+                if (res.data.code == 200) {
+                  wx.showToast({
+                    title: '退出成功！',
+                    icon: 'success',
+                    duration: 2000
+                  })
                   setTimeout(function () {
                     wx.redirectTo({
                       url: './activity_detail?activity_id=' + wx.getStorageSync('activity_id')
                     })
                   }, 3000)
-                
-              } else {
-                wx.showToast({
-                  title: '退出出错！',
-                  icon: 'none',
-                  duration: 2000
-                })
+
+                } else {
+                  wx.showToast({
+                    title: '退出出错！',
+                    icon: 'none',
+                    duration: 2000
+                  })
+                }
               }
-            }
-          })
-          console.log('用户点击确认')
-        } else {
-          console.log('用户点击取消')
+            })
+            console.log('用户点击确认')
+          } else {
+            console.log('用户点击取消')
+          }
         }
-      }
-    });
+      })
+    }else{
+      wx.showToast({
+        title: '请先登陆！',
+        icon: 'none',
+        duration: 2000
+      })
+    }
+    
     
   },
   bindDeleteActivity: function (e) {
-    wx.showModal({
-      title: '提醒',
-      content: '确认删除该活动吗？',
-      confirmText: "确认",
-      cancelText: "取消",
-      success: function (res) {
-        console.log(res);
-        if (res.confirm) {
-          // 此处请求
-          wx.request({
-            url: 'http://118.25.180.46/activity/' + wx.getStorageSync('wechat_id') + '/created/' + wx.getStorageSync('activity_id'), //删除该活动接口地址
-            method: 'DELETE',
-            data: {
+    if (wx.getStorageSync('wechat_id')) {
+      wx.showModal({
+        title: '提醒',
+        content: '确认删除该活动吗？',
+        confirmText: "确认",
+        cancelText: "取消",
+        success: function (res) {
+          console.log(res);
+          if (res.confirm) {
+            // 此处请求
+            wx.request({
+              url: 'http://118.25.180.46/activity/' + wx.getStorageSync('wechat_id') + '/created/' + wx.getStorageSync('activity_id'), //删除该活动接口地址
+              method: 'DELETE',
+              data: {
 
-            },
-            header: {
-              'content-type': 'application/json' // 默认值
-            },
-            success: function (res) {
-              console.log("shanchu"+res.data)
-              console.log(res.data.affected)
-              if (res.data.code ==200 && res.data.affected == 1) {
-                wx.showToast({
-                  title: '删除成功！',
-                  icon: 'success',
-                  duration: 2000,
-                  // success:function(){
-                  //   wx.redirectTo({
-                  //     url: './activity_detail?activity_id=' + wx.getStorageSync('activity_id')
-                  //   })
-                  // }
-                })
-                setTimeout(function () {
-                  wx.redirectTo({
-                    url: './activity_detail?activity_id=' + wx.getStorageSync('activity_id')
+              },
+              header: {
+                'content-type': 'application/json' // 默认值
+              },
+              success: function (res) {
+                console.log("shanchu" + res.data)
+                console.log(res.data.affected)
+                if (res.data.code == 200 && res.data.affected == 1) {
+                  wx.showToast({
+                    title: '删除成功！',
+                    icon: 'success',
+                    duration: 2000,
+                    // success:function(){
+                    //   wx.redirectTo({
+                    //     url: './activity_detail?activity_id=' + wx.getStorageSync('activity_id')
+                    //   })
+                    // }
                   })
-                }, 3000)
-              } else{
-                wx.showToast({
-                  title: '删除出错！',
-                  icon: 'none',
-                  duration: 2000
-                })
+                  setTimeout(function () {
+                    wx.redirectTo({
+                      url: './activity_detail?activity_id=' + wx.getStorageSync('activity_id')
+                    })
+                  }, 3000)
+                } else {
+                  wx.showToast({
+                    title: '删除出错！',
+                    icon: 'none',
+                    duration: 2000
+                  })
+                }
+
               }
-              
-            }
-          })
-          console.log('用户点击确认')
-          
-        } else {
-          console.log('用户点击取消')
+            })
+            console.log('用户点击确认')
+
+          } else {
+            console.log('用户点击取消')
+          }
+
         }
-       
-      }
-    });
+      })
+    } else {
+      wx.showToast({
+        title: '请先登陆！',
+        icon: 'none',
+        duration: 2000
+      })
+    }
+    
     
   },
   /**

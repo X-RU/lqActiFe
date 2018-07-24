@@ -3,6 +3,7 @@
 
 <view class="container">
   <!--搜索  -->
+  <block wx:if="{{showSearch}}">
   <view class="weui-search-bar search_style">
     <view class="weui-search-bar__form">
         <view class="weui-search-bar__box">
@@ -19,7 +20,7 @@
     </view>
     <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" bindtap="hideInput">取消</view>
   </view>
-
+  
   <!--搜索内容列表  -->
   <view class="weui-cells search_content_style" wx:if="{{inputVal.length > 0}}">
       <!-- <block wx:for-items="{activity_list}}" wx:key="{{item.activity_id}}"> 
@@ -37,7 +38,7 @@
       </navigator>
             
   </view>
-
+  </block>
   <block wx:if="{{inputVal.length == 0}}">
   <view class="weui-flex activityInfo" >
     <view class='activity_head'>
