@@ -173,7 +173,7 @@ Page({
       })
       return false
     }
-    if (app.globalData.userInfo) {
+    if (wx.getStorageSync('wechat_id')) {
       console.log(app.globalData.userInfo)
       console.log(e.detail.value)
       //创建活动
