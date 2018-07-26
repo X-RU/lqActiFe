@@ -1,0 +1,86 @@
+/* pages/activity/activity_detail.wxss */
+.acticity_image {
+  width: 100%;
+}
+
+.participate_image {
+  width: 120rpx;
+  height: 120rpx;
+  
+}
+
+.participate_content {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.image_content{
+  display: flex;
+  flex-direction:column;
+}
+
+.btn_bottom{
+    width: 100%;
+    position: fixed;
+    bottom: 0rpx;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    border-top: 1rpx solid #D9D9D9; 
+}
+
+
+.btn_item {
+  font-size: 32rpx;
+}
+
+.btn::after {
+  border: 0;
+}
+
+.btn_item button {
+  border-radius: 0;
+  font-size: 36rpx;
+  background: none;
+  line-height: 100rpx;
+}
+.btn_item button::after {
+  border-radius: 0;
+  border: 0;
+  text-align: center;
+}
+
+.btn_style_l{
+  width:60px;
+  display:flex;
+  flex-direction:column;
+  border-right: 1px solid #D9D9D9;
+  background-color: #edece8;
+}
+
+.btn_style_l .home_image{
+  width: 50rpx;
+  height: 50rpx;
+  display: block;
+  margin: 10rpx auto 0;
+}
+
+.btn_style_r{
+  flex: 2;
+  background-color: #1AAD19;
+}
+
+.btn_style_m{
+  flex:2;
+  border-right: 1px solid #D9D9D9;
+  background-color: #edece8;
+  
+}
+
+.block_bottom{
+  margin-bottom: 180rpx;
+}
+
+.bottom-style-10{
+ margin-bottom: 120rpx;
+}

@@ -1,0 +1,142 @@
+/**app.wxss**/
+@import "/pages/weui.wxss";
+
+page {
+  background-color: #F8F8F8;
+}
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  justify-content: space-between; 
+  /* padding: 40rpx 0; */
+  box-sizing: border-box; 
+  overflow: hidden;
+} 
+/*引入外部字体库iconfont的图标  */
+/* @font-face {
+  font-family: 'iconfont';  
+  src: url('//at.alicdn.com/t/font_518032_t2q88z3jok8iwwmi.eot');
+  src: url('//at.alicdn.com/t/font_518032_t2q88z3jok8iwwmi.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_518032_t2q88z3jok8iwwmi.woff') format('woff'),
+  url('//at.alicdn.com/t/font_518032_t2q88z3jok8iwwmi.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_518032_t2q88z3jok8iwwmi.svg#iconfont') format('svg');
+} */
+/* .iconfont {
+  font-family:"iconfont" !important;
+  font-size:60rpx;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+} */
+/*本项目使用的18个图标  */
+/* .icon-zhiding:before{content: '\e739';}
+.icon-zuojiantou:before{content: '\e736';}
+.icon-youjiantou:before{content: '\e735';}
+.icon-shangjiantou:before{content: '\e734';}
+.icon-xiajiantou1:before{content: '\e733';}
+.icon-xiajiantou:before{content: '\e6cc';}
+.icon-gengduotianchong:before{content: '\e67f';}
+.icon-erweima:before{content: '\e65f';}
+.icon-fenleiorguangchangorqita:before{content: '\e64f';}
+.icon-dibiao:before{content: '\e64d';}
+.icon-bangzhu:before{content: '\e64a';}
+.icon-xinfeng:before{content: '\e640';}
+.icon-duihuaxinxi:before{content: '\e639';}
+.icon-sousuo:before{content: '\e62f';}
+.icon-shouye:before{content: '\e62d';}
+.icon-shezhi:before{content: '\e62a';}
+.icon-shanchu:before{content: '\e629';}
+.icon-dianhua:before{content: '\e61b';} */
+
+.page-section {
+  width: 100%;
+  margin-bottom: 60rpx;
+}
+
+.button_style {
+  width:400rpx;
+  color: #fff;
+}
+
+.input_style {
+  width: 180rpx;
+}
+
+.text_space {
+  letter-spacing: 15rpx;
+}
+
+.input_text {
+  font-size: 15px;
+  color: darkgray;
+}
+
+.text_center {
+  text-align: center;
+}
+.text_left {
+  text-align: left;
+}
+
+.text_white {
+  color: #fff;
+}
+
+.text_size {
+  font-size: 18px;
+}
+
+.contentDetail {
+  /* margin-top: 5px; */
+  width: 100%;
+}
+
+.margin_top_10 {
+  margin-top: 10rpx;
+}
+.margin_right_10 {
+  margin-right: 10rpx;
+}
+
+.margin_left_10 {
+  margin-left: 10rpx;
+}
+
+.margin_left_20 {
+  margin-left: 20rpx;
+}
+
+.margin_bottom_10 {
+  margin-bottom: 10rpx;
+}
+
+.search_style {
+  width: 100%;
+}
+
+.search_content_style {
+  width: 100%;
+  margin-top: 0rpx;
+}
+
+.weui-flex-col {
+  display: flex;
+  flex-direction: column;
+  align-items:center;
+
+}
+
+.block_bottom{
+  margin-bottom: 180rpx;
+}
+
+.must_text {
+  color: red;
+  font-size: 50rpx;
+}
+
+.border_bottom {
+  border-bottom: 1px solid #D9D9D9;
+}

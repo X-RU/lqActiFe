@@ -1,0 +1,130 @@
+<!--pages/activity/activity_detail.wxml-->
+
+<view class="container ">
+  <view class="page-section weui-panel weui-panel_access">
+    <view>
+      <image class="acticity_image" src="/images/picture1.png" mode="cover"></image>
+    </view>
+    <view class="weui-panel__bd">
+      <view class="weui-media-box weui-media-box_text">
+          <view class="weui-media-box__title weui-media-box__title_in-text">{{activity.aname}}</view>
+          <view class="weui-media-box__desc">活动状态：
+          <label wx:if="{{activity.activity_status == 0}}">进行中</label>
+          <label wx:elif="{{activity.activity_status == 2}}">已结束</label>
+          <label wx:else="{{activity.activity_status == 3}}">已删除</label>
+          </view>
+          <view class="weui-media-box__desc">活动描述：{{activity.description?activity.description:'无'}}</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="page-section">
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell">
+        <view class="weui-cell__hd">
+          <label class="weui-label">类别</label>
+        </view>
+        <view class="weui-cell__bd">
+          <label wx:if="{{activity.atype==0}}">运动</label>
+          <label wx:if="{{activity.atype==1}}">健身</label>
+          <label wx:if="{{activity.atype==2}}">聚餐</label>
+        </view>
+      </view>
+      <view class="weui-cell">
+        <view class="weui-cell__hd">
+          <label class="weui-label">时间</label>
+        </view>
+        <view class="weui-cell__bd">
+          <label>{{activity.date}} {{activity.time}}</label>
+        </view>
+      </view>
+      <navigator class="weui-cell weui-cell_access" url="/pages/activity/my_activity" hover-class="weui-cell_active">
+        <view class="weui-cell__hd">
+          <label class="weui-label">地点</label>
+        </view>
+        <view class="weui-cell__bd">
+        <label>{{activity.place}}</label>
+        </view>
+        <!-- <view class="weui-cell__ft weui-cell__ft_in-access">定位
+        </view> -->
+      </navigator>
+      <view class="weui-cell">
+        <view class="weui-cell__hd">
+          <label class="weui-label">费用</label>
+        </view>
+        <view class="weui-cell__bd">
+          <label wx:if="{{activity.cost_type==0 || activity.cost_type==null}}">AA制</label>
+          <label wx:if="{{activity.cost_type==1}}">预收 {{activity.cost_value}}元</label>
+          <label wx:if="{{activity.cost_type==2}}">免费</label>
+        </view>
+      </view>
+    </view>
+    </view>
+
+  <view class="page-section bottom-style-10">
+    <view class="weui-cells weui-cells_after-title">
+      <navigator class="weui-cell weui-cell_access" url="/pages/activity/participate_list?activity_id={{activity.activity_id}}" hover-class="weui-cell_active">
+        <view class="weui-cell__bd">
+          <label class="weui-label">参加：{{count}}人</label>
+        </view>
+        <view class="weui-cell__ft weui-cell__ft_in-access">报名详情
+        </view>
+      </navigator>
+      <block wx:if="{{true}}">
+        <view class="weui-cell participate_content">
+          <view class="weui-cell__bd weui-flex-col" wx:for="{{user_list}}" wx:key="{{item.wechat_id}}">
+            <image class="participate_image" src="{{item.image_url}}"></image>
+            <text class="input_text">{{item.name}}</text>
+          </view>
+          
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <block wx:if="{{is_sponsor && activity.activity_status == 0}}">
+  <view class="page-section block_bottom">
+    <view class="weui-cells weui-cells_after-title">
+      <!-- <navigator class="weui-cell weui-cell_access" url="/pages/activity/activity_manage" hover-class="weui-cell_active">
+        <view class="weui-cell__bd">
+          <label class="weui-label">管理</label>
+        </view>
+        <view class="weui-cell__ft weui-cell__ft_in-access">仅对发起人显示
+        </view>
+      </navigator> -->
+       <navigator class="weui-cell weui-cell_access" url="/pages/activity/create_activity" hover-class="weui-cell_active">
+        <view class="weui-cell__bd">活动修改</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access">
+        </view>
+    </navigator>
+    <navigator class="weui-cell weui-cell_access" url="/pages/activity/activity_shift" hover-class="weui-cell_active">
+      <view class="weui-cell__bd">活动转让</view>
+      <view class="weui-cell__ft weui-cell__ft_in-access">
+      </view>
+    </navigator>
+     </view>
+  </view>
+  </block>
+
+
+  <view class="btn_bottom text_center">
+      <navigator class='btn_item btn_style_l' url="/pages/activity/activity" open-type='switchTab' hover-class="weui-cell_active">
+          <image class="home_image" src="/images/index.png"></image>
+          <text>首页</text>
+      </navigator>
+      <view class="btn_item btn_style_m">
+        <button class=""  open-type="share">分享</button> 
+      </view>
+      <view class="btn_item btn_style_r" wx:if="{{!is_participate && activity.activity_status ==0 }}">
+        <button class="primary text_white" bindtap='bindJoinActivity'>报名</button> 
+      </view>
+      <view class="btn_item btn_style_r" wx:if="{{is_participate && !is_sponsor}}">
+        <button class="text_white" bindtap='bindOutActivity'>退出</button> 
+      </view>
+      <view class="btn_item btn_style_r" wx:if="{{is_sponsor && activity.activity_status != 3}}">
+        <button class="text_white" bindtap='bindDeleteActivity'>删除</button> 
+      </view>
+  </view>
+</view>
+
+

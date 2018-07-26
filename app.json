@@ -1,0 +1,42 @@
+{
+  "pages": [
+    "pages/activity/activity",
+    "pages/activity/my_activity",
+    "pages/activity/all_activity",
+    "pages/activity/activity_detail",
+    "pages/activity/create_activity",
+    "pages/activity/participate_list",
+    "pages/activity/activity_manage",
+    "pages/activity/activity_shift",
+    "pages/activity/join_activity",
+    "pages/index/index",
+    
+    
+    "pages/logs/logs",
+    "pages/userInfo/userInfo"
+
+  ],
+  "window": {
+    "backgroundTextStyle": "dark",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "来趣活动吧",
+    "navigationBarTextStyle": "black"
+
+  },
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/activity/activity",
+        "text": "活动",
+        "iconPath": "images/huodong.png",
+        "selectedIconPath": "images/active_huodong.png"
+      },
+      {
+        "pagePath": "pages/index/index",
+        "text": "我的",
+        "iconPath": "images/user.png",
+        "selectedIconPath": "images/active_user.png"
+      }
+    ]
+  }
+}
