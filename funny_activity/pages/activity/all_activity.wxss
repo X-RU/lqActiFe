@@ -1,6 +1,0 @@
-/* pages/activity/all_activity.wxss */
-
-.weui-tab__content{
-    padding-top: 60px;
-    text-align: center;
-}

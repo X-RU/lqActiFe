@@ -1,6 +1,0 @@
-/* pages/activity/activity_shift.wxss */
-
-.image_style{
-  width:100rpx;
-  height:100rpx;
-}
