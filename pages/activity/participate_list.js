@@ -1,4 +1,6 @@
 // pages/activity/participate_list.js
+const app = getApp()
+
 Page({
 
   /**
@@ -14,7 +16,7 @@ Page({
   onLoad: function (options) {
     //请求获取参与者信息
     wx.request({
-      url: 'http://118.25.180.46/activity/' + wx.getStorageSync('wechat_id') + '/detail/' + options.activity_id, //获取活动详情接口地址
+      url: app.globalData.serverUrl +'activity/' + wx.getStorageSync('wechat_id') + '/detail/' + options.activity_id, //获取活动详情接口地址
       method: 'GET',
       data: {
       

@@ -14,7 +14,7 @@ Page({
       console.log("1")
       //获取用户信息
       wx.request({
-        url: 'http://118.25.180.46/me/' + wx.getStorageSync('wechat_id'), //获取用户信息接口地址
+        url: app.globalData.serverUrl +'me/' + wx.getStorageSync('wechat_id'), //获取用户信息接口地址
         method: 'GET',
         data: {
           // wechat_id: app.globalData.wechat_id
@@ -81,7 +81,7 @@ Page({
           app.globalData.code = res.code
 
           wx.request({
-            url: 'http://118.25.180.46/autho/login', //保存登陆用户信息的接口地址
+            url: app.globalData.serverUrl +'autho/login', //保存登陆用户信息的接口地址
             method: 'POST',
             data: {
               request_code: app.globalData.code,

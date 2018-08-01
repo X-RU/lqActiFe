@@ -20,7 +20,7 @@ Page({
       })
       // 请求获取活动信息
       wx.request({
-        url: 'http://118.25.180.46/activity/' + wx.getStorageSync('wechat_id') + '/detail/' + wx.getStorageSync('activity_id'), //获取活动详情接口地址
+        url: app.globalData.serverUrl +'activity/' + wx.getStorageSync('wechat_id') + '/detail/' + wx.getStorageSync('activity_id'), //获取活动详情接口地址
         method: 'GET',
         data: {
         },
@@ -180,7 +180,7 @@ Page({
       if (!wx.getStorageSync('activity_id')) {
         // 将用户数据发送给后台，进行存储
         wx.request({
-          url: 'http://118.25.180.46/activity', //添加活动的接口地址
+          url: app.globalData.serverUrl +'activity', //添加活动的接口地址
           method: 'POST',
           data: {
             wechat_id: wx.getStorageSync('wechat_id'),
@@ -225,7 +225,7 @@ Page({
         console.log(e.detail.value.atype)
         // 将用户数据发送给后台，进行存储
         wx.request({
-          url: 'http://118.25.180.46/activity/' + wx.getStorageSync('wechat_id') + '/created/' + wx.getStorageSync('activity_id'), //更新活动的接口地址
+          url: app.globalData.serverUrl +'activity/' + wx.getStorageSync('wechat_id') + '/created/' + wx.getStorageSync('activity_id'), //更新活动的接口地址
           method: 'POST',
           data: {
             wechat_id: wx.getStorageSync('wechat_id'),
@@ -289,7 +289,7 @@ Page({
     if (!wx.setStorageSync('wechat_id')) {
       // 不做操作
       wx.request({
-        url: 'http://118.25.180.46/autho/login', //保存登陆用户信息的接口地址
+        url: app.globalData.serverUrl +'autho/login', //保存登陆用户信息的接口地址
         method: 'POST',
         data: {
           request_code: app.globalData.code,

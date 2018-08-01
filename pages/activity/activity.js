@@ -50,7 +50,7 @@ Page({
     if (wx.getStorageSync('wechat_id')){
       //发请求获取全部活动
       wx.request({
-        url: 'http://118.25.180.46/activity/search/' + e.detail.value.trim(), //判断活动是否已参加接口地址
+        url: app.globalData.serverUrl+'activity/search/' + e.detail.value.trim(), //判断活动是否已参加接口地址
         method: 'GET',
         data: {
           // content: e.detail.value

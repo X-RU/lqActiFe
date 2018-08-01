@@ -1,4 +1,6 @@
 // pages/activity/activity_shift.js
+const app = getApp()
+
 Page({
 
   /**
@@ -15,7 +17,7 @@ Page({
     console.log(wx.getStorageSync('activity_id'))
     //请求获取参与者信息
     wx.request({
-      url: 'http://118.25.180.46/activity/' + wx.getStorageSync('wechat_id') + '/detail/' + wx.getStorageSync('activity_id'), //获取活动详情接口地址
+      url: app.globalData.serverUrl +'activity/' + wx.getStorageSync('wechat_id') + '/detail/' + wx.getStorageSync('activity_id'), //获取活动详情接口地址
       method: 'GET',
       data: {
 
@@ -45,7 +47,7 @@ Page({
     
     // 将用户数据发送给后台，进行存储
     wx.request({
-      url: 'http://118.25.180.46/activity/shift',
+      url: app.globalData.serverUrl +'activity/shift',
       method:'POST',
       data: {
         wechat_id: wx.getStorageSync('wechat_id'),

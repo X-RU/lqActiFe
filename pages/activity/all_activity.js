@@ -28,7 +28,7 @@ Page({
       console.log("111")
       //发请求获取全部活动
       wx.request({
-        url: 'http://118.25.180.46/activity/' + wx.getStorageSync('wechat_id'), //判断活动是否已参加接口地址
+        url: app.globalData.serverUrl +'activity/' + wx.getStorageSync('wechat_id'), //判断活动是否已参加接口地址
         method: 'GET',
         data: {
           // activity_id: options.activity_id,

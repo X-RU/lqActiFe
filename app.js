@@ -31,7 +31,7 @@ App({
               if (!wx.getStorageSync('wechat_id')){
                 console.log(wx.getStorageSync('wechat_id'))
                 wx.request({
-                  url: 'http://118.25.180.46/autho/login', //保存登陆用户信息的接口地址
+                  url: this.globalData.serverUrl+'autho/login', //保存登陆用户信息的接口地址
                   method: 'POST',
                   data: {
                     request_code: this.globalData.code,
@@ -82,6 +82,7 @@ App({
     
   },
   globalData: {
+    serverUrl:'https://activity.qufenqi.com/',
     userInfo: null,
     code:null,
     wechat_id:null

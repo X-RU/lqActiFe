@@ -19,7 +19,7 @@ Page({
     wx.setStorageSync('activity_id', options.activity_id) 
     if (wx.getStorageSync('wechat_id')) {
       wx.request({
-        url: 'http://118.25.180.46/activity/' + wx.getStorageSync('wechat_id') + '/detail/' + options.activity_id, //获取活动详情接口地址
+        url: app.globalData.serverUrl +'activity/' + wx.getStorageSync('wechat_id') + '/detail/' + options.activity_id, //获取活动详情接口地址
         method: 'GET',
         data: {
         },
@@ -60,7 +60,7 @@ Page({
     // // 将用户数据发送给后台，进行存储
     if(wx.getStorageSync('wechat_id')){
       wx.request({
-        url: 'http://118.25.180.46/activity/detail', //判断活动参加接口地址
+        url: app.globalData.serverUrl +'activity/detail', //判断活动参加接口地址
         method: 'POST',
         data: {
           wechat_id: wx.getStorageSync('wechat_id'),
@@ -114,7 +114,7 @@ Page({
           if (res.confirm) {
             // 此处请求后台删除该活动的参与人
             wx.request({
-              url: 'http://118.25.180.46/activity/' + wx.getStorageSync('wechat_id') + '/detail/' + wx.getStorageSync('activity_id'), //是否退出活动接口地址
+              url: app.globalData.serverUrl +'activity/' + wx.getStorageSync('wechat_id') + '/detail/' + wx.getStorageSync('activity_id'), //是否退出活动接口地址
               method: 'DELETE',
               data: {
               },
@@ -172,7 +172,7 @@ Page({
           if (res.confirm) {
             // 此处请求
             wx.request({
-              url: 'http://118.25.180.46/activity/' + wx.getStorageSync('wechat_id') + '/created/' + wx.getStorageSync('activity_id'), //删除该活动接口地址
+              url: app.globalData.serverUrl +'activity/' + wx.getStorageSync('wechat_id') + '/created/' + wx.getStorageSync('activity_id'), //删除该活动接口地址
               method: 'DELETE',
               data: {
 
